@@ -16,7 +16,7 @@ kind: Namespace
 metadata:
   name: wp
   annotations:
-    cnrm.cloud.google.com/project-id: to-be-specified # kpt-set: ${project-id}
+    cnrm.cloud.google.com/project-id: "anthos-a301" # kpt-set: ${project-id}
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -24,7 +24,7 @@ metadata:
   name: sql-wp-ksa-wi
   namespace: wp
   annotations:
-    iam.gke.io/gcp-service-account: sql-wp-sa@to-be-specified.iam.gserviceaccount.com # kpt-set: sql-wp-sa@${project-id}.iam.gserviceaccount.com
+    iam.gke.io/gcp-service-account: sql-wp-sa@.iam.gserviceaccount.com # kpt-set: sql-wp-sa@${project-id}.iam.gserviceaccount.com
 ---
 apiVersion: v1
 kind: Secret
@@ -34,7 +34,7 @@ metadata:
 stringData:
   connectionName: us-central1:wp-db
   password: change-me
-  projectId: to-be-specified # kpt-set: ${project-id}
+  projectId: "anthos-a301" # kpt-set: ${project-id}
   username: wordpress
 ---
 apiVersion: serviceusage.cnrm.cloud.google.com/v1beta1
@@ -45,6 +45,7 @@ metadata:
   annotations:
     cnrm.cloud.google.com/deletion-policy: abandon
     cnrm.cloud.google.com/disable-dependent-services: "false"
+    cnrm.cloud.google.com/blueprint: 'kpt-fn'
 ---
 # Source: wordpress-gcp/templates/k8s-external-load-balancer.yaml
 apiVersion: v1
@@ -158,10 +159,12 @@ kind: IAMPolicy
 metadata:
   name: sql-wp-sa-wi-policy
   namespace: wp
+  annotations:
+    cnrm.cloud.google.com/blueprint: 'kpt-fn'
 spec:
   bindings:
     - members:
-        - serviceAccount:to-be-specified.svc.id.goog[wp/sql-wp-ksa-wi] # kpt-set: serviceAccount:${project-id}.svc.id.goog[wp/sql-wp-ksa-wi]
+        - serviceAccount:.svc.id.goog[wp/sql-wp-ksa-wi] # kpt-set: serviceAccount:${project-id}.svc.id.goog[wp/sql-wp-ksa-wi]
       role: roles/iam.workloadIdentityUser
   resourceRef:
     name: sql-wp-sa
@@ -173,12 +176,14 @@ kind: IAMPolicyMember
 metadata:
   name: sql-wp-sa-project-policymember
   namespace: wp
+  annotations:
+    cnrm.cloud.google.com/blueprint: 'kpt-fn'
 spec:
-  member: serviceAccount:sql-wp-sa@to-be-specified.iam.gserviceaccount.com # kpt-set: serviceAccount:sql-wp-sa@${project-id}.iam.gserviceaccount.com
+  member: serviceAccount:sql-wp-sa@.iam.gserviceaccount.com # kpt-set: serviceAccount:sql-wp-sa@${project-id}.iam.gserviceaccount.com
   resourceRef:
     apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
     kind: Project
-    external: to-be-specified # kpt-set: ${project-id}
+    external: "anthos-a301" # kpt-set: ${project-id}
   role: roles/cloudsql.client
 ---
 apiVersion: iam.cnrm.cloud.google.com/v1beta1
@@ -186,6 +191,8 @@ kind: IAMServiceAccount
 metadata:
   name: sql-wp-sa
   namespace: wp
+  annotations:
+    cnrm.cloud.google.com/blueprint: 'kpt-fn'
 spec:
   displayName: Service Account for WordPress Config Connector Sample
 ---
@@ -194,6 +201,8 @@ kind: SQLDatabase
 metadata:
   name: wordpress
   namespace: wp
+  annotations:
+    cnrm.cloud.google.com/blueprint: 'kpt-fn'
 spec:
   charset: utf8
   instanceRef:
@@ -204,6 +213,8 @@ kind: SQLInstance
 metadata:
   name: wp-db
   namespace: wp
+  annotations:
+    cnrm.cloud.google.com/blueprint: 'kpt-fn'
 spec:
   databaseVersion: MYSQL_5_7
   region: us-central1
@@ -215,6 +226,8 @@ kind: SQLUser
 metadata:
   name: wordpress
   namespace: wp
+  annotations:
+    cnrm.cloud.google.com/blueprint: 'kpt-fn'
 spec:
   host: "%"
   instanceRef:
