@@ -20,5 +20,5 @@ metadata:
   annotations:
     cnrm.cloud.google.com/blueprint: 'kpt-fn'
 spec:
-  googleServiceAccount: "cnrmsa@to-be-specified.iam.gserviceaccount.com" # kpt-set: cnrmsa@${projectId}.iam.gserviceaccount.com
+  googleServiceAccount: "cnrmsa@anthos-a301.iam.gserviceaccount.com" # kpt-set: cnrmsa@${projectId}.iam.gserviceaccount.com
   mode: cluster
