@@ -24,7 +24,7 @@ metadata:
   name: sql-wp-ksa-wi
   namespace: wp
   annotations:
-    iam.gke.io/gcp-service-account: sql-wp-sa@.iam.gserviceaccount.com # kpt-set: sql-wp-sa@${project-id}.iam.gserviceaccount.com
+    iam.gke.io/gcp-service-account: sql-wp-sa@anthos-a301.iam.gserviceaccount.com # kpt-set: sql-wp-sa@${anthos-a301project-id}.iam.gserviceaccount.com
 ---
 apiVersion: v1
 kind: Secret
@@ -164,7 +164,7 @@ metadata:
 spec:
   bindings:
     - members:
-        - serviceAccount:.svc.id.goog[wp/sql-wp-ksa-wi] # kpt-set: serviceAccount:${project-id}.svc.id.goog[wp/sql-wp-ksa-wi]
+        - serviceAccount:anthos-a301.svc.id.goog[wp/sql-wp-ksa-wi] # kpt-set: serviceAccount:${project-id}.svc.id.goog[wp/sql-wp-ksa-wi]
       role: roles/iam.workloadIdentityUser
   resourceRef:
     name: sql-wp-sa
@@ -179,7 +179,7 @@ metadata:
   annotations:
     cnrm.cloud.google.com/blueprint: 'kpt-fn'
 spec:
-  member: serviceAccount:sql-wp-sa@.iam.gserviceaccount.com # kpt-set: serviceAccount:sql-wp-sa@${project-id}.iam.gserviceaccount.com
+  member: serviceAccount:sql-wp-sa@anthos-a301.iam.gserviceaccount.com # kpt-set: serviceAccount:sql-wp-sa@${project-id}.iam.gserviceaccount.com
   resourceRef:
     apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
     kind: Project
