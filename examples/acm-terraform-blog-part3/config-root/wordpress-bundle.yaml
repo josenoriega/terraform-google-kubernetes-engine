@@ -32,7 +32,7 @@ metadata:
   name: wordpress-cloudsql-db-credentials
   namespace: wp
 stringData:
-  connectionName: anthos-a301:us-central1:wp-db
+  connectionName: us-central1:wp-db
   password: change-me
   projectId: anthos-a301 # kpt-set: ${project-id}
   username: wordpress
