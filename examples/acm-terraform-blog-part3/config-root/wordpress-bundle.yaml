@@ -103,6 +103,7 @@ spec:
               memory: "100Mi"
         - name: wordpress
           image: alpine
+          commands: ["sleep", "infinity"]
           ports:
             - containerPort: 80
           env:
