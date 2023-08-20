@@ -103,7 +103,8 @@ spec:
               memory: "100Mi"
         - name: wordpress
           image: alpine
-          command: ["sleep", "infinity"]
+          args: ["sleep", "infinity"]
+          command: ["sh", "-c"]
           ports:
             - containerPort: 80
           env:
@@ -126,25 +127,25 @@ spec:
           volumeMounts:
             - name: wordpress-volume
               mountPath: /var/www/html
-          livenessProbe:
-            failureThreshold: 20
-            httpGet:
-              port: 80
-              path: /
-            initialDelaySeconds: 30
-            periodSeconds: 10
-            successThreshold: 1
-            timeoutSeconds: 10
-          readinessProbe:
-            failureThreshold: 10
-            httpGet:
-              port: 80
-              path: /
-            initialDelaySeconds: 180
-            periodSeconds: 10
-            successThreshold: 1
-            timeoutSeconds: 10
-          imagePullPolicy: IfNotPresent
+                #        livenessProbe:
+                #          failureThreshold: 20
+                #          httpGet:
+                #            port: 80
+                #            path: /
+                #          initialDelaySeconds: 30
+                #          periodSeconds: 10
+                #          successThreshold: 1
+                #          timeoutSeconds: 10
+                #        readinessProbe:
+                #          failureThreshold: 10
+                #          httpGet:
+                #            port: 80
+                #            path: /
+                #          initialDelaySeconds: 180
+                #          periodSeconds: 10
+                #          successThreshold: 1
+                #          timeoutSeconds: 10
+                #        imagePullPolicy: IfNotPresent
   volumeClaimTemplates:
     - metadata:
         name: wordpress-volume
