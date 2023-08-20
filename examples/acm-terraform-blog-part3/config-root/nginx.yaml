@@ -4,7 +4,6 @@ metadata:
   creationTimestamp: null
   name: test
 spec: {}
-status: {}
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -30,7 +29,6 @@ spec:
       - image: nginx
         name: nginx
         resources: {}
-status: {}
 ---
 apiVersion: v1
 kind: Service
@@ -49,5 +47,3 @@ spec:
   selector:
     app: nginx
   type: ClusterIP
-status:
-  loadBalancer: {}
