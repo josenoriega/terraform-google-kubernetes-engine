@@ -119,6 +119,11 @@ spec:
                 secretKeyRef:
                   name: wordpress-cloudsql-db-credentials
                   key: password
+            - name: MYSQL_PWD
+              valueFrom:
+                secretKeyRef:
+                  name: wordpress-cloudsql-db-credentials
+                  key: password
           resources:
             limits:
               cpu: 200m
