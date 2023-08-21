@@ -102,11 +102,9 @@ spec:
               cpu: "200m"
               memory: "100Mi"
         - name: wordpress
-          image: google/cloud-sdk
-          args: ["sleep", "infinity"]
-          command: ["sh", "-c"]
-          ports:
-            - containerPort: 80
+          command: ["sh", "-c", "tail -f /dev/null"]
+            #ports:
+            #- containerPort: 80
           env:
             - name: WORDPRESS_DB_HOST
               value: 127.0.0.1:3306
